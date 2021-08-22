@@ -22,10 +22,12 @@ Route::group(['prefix' => 'auth', 'namespace' => '\App\Http\Controllers\Api'], f
         Route::post('refresh', 'AuthController@refresh');
         Route::post('me', 'AuthController@me');
 
-        Route::get('user', 'UserController@index');
-        Route::post('user', 'UserController@store');
-        Route::get('user/{id}', 'UserController@show');
-        Route::put('user/{id}', 'UserController@update');
-        Route::delete('user/{id}', 'UserController@destroy');
     });
+});
+Route::group(['namespace' => '\App\Http\Controllers\Api', 'middleware' => 'auth:api'], function () {
+    Route::get('user', 'UserController@index');
+    Route::post('user', 'UserController@store');
+    Route::get('user/{id}', 'UserController@show');
+    Route::put('user/{id}', 'UserController@update');
+    Route::delete('user/{id}', 'UserController@destroy');
 });
